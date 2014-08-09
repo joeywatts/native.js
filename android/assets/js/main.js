@@ -45,5 +45,9 @@ with (namespace) {
 				Log.d("native.js UI", "this switch is off");
 		};
 		_switch.addToView(main_view);
+
+		var imgView = new nativeJsUi.ImageView();
+		imgView.image = "octocat_setup.png";
+		imgView.addToView(main_view);
 	}
 }

@@ -170,7 +170,32 @@ with(nativeJsUi) {}
 with(nativeJsUi) {}
 
 /* ImageView */
-with(nativeJsUi) {}
+nativeJsUi.ImageView = function() {
+	this.androidView = new Packages.android.widget.ImageView(activity);
+	this.androidView.setLayoutParams(new Packages.android.widget.LinearLayout.LayoutParams(
+        Packages.android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+        Packages.android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
+};
+with(nativeJsUi) {
+	ImageView.prototype = new View();
+	Object.defineProperty(ImageView.prototype, "image", {
+		set: function(img) {
+			if (typeof img === 'number') {
+				/* Resource ID */
+				this.androidView.setImageResource(img);
+			} else if (typeof img === 'string') {
+				/* File */
+				if (img.lastIndexOf('/',0) != 0)
+					this.androidView.setImageDrawable(Packages.android.graphics.drawable.Drawable.createFromStream(
+						activity.getAssets().open(img),
+						img
+						));
+				else
+					this.androidView.setImageDrawable(Packages.android.graphics.drawable.Drawable.createFromPath(img));
+			}
+		}
+	});
+}
 
 /* ListView */
 with(nativeJsUi) {}
