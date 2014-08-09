@@ -1,11 +1,13 @@
 # Android UI Framework Status
 
+*WARNING* : Views that have been implemented only have the most basic, fundamental features at this point.
+
 * ~~View~~
 * ~~Button~~
 * ~~Label~~
 * ~~TextField~~
 * ~~Switch~~
-* ImageView
+* ~~ImageView~~
 * CheckBox
 * RadioButton
 * Stepper
