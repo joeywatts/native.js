@@ -7,9 +7,13 @@ Because **native.js** runs directly on top of a JavaScript engine and not in a b
 
 # Project Status
 
+## JavaScript API
+
+See the foundation of the [UI Framework API](UIFrameworkAPI.md).
+
 ## Android
 
-Very little ground work has been laid at this point. So far, I have started the Android implementation of **native.js**, running on top of Mozilla's *Rhino* JavaScript engine. Another option was Google's *V8* JavaScript engine, but I decided on Rhino because V8 is a much larger library and it uses C++, which would require me to use the NDK, while Rhino is pure Java.
+Some basic functionality has been implemented. So far, I have started the Android implementation of **native.js**, running on top of Mozilla's *Rhino* JavaScript engine. Another option was Google's *V8* JavaScript engine, but I decided on Rhino because V8 is a much larger library and it uses C++, which would require me to use the NDK, while Rhino is pure Java. See the framework status page for more details.
 
 ### [Android UI Framework Status](android/UIFrameworkStatus.md)
 
