@@ -12,7 +12,6 @@ public class Field extends View {
 	 */
 	public Field() {
 		init(new EditText(NativeJsActivity.getActivity()));
-		setPrototype(new View());
 	}
 	
 	/**
@@ -21,24 +20,29 @@ public class Field extends View {
 	 */
 	public Field(String hint) {
 		this();
-		setHint(hint);
+		jsSet_hint(hint);
 	}
 	
-	public void setHint(String s) {
+	public void jsSet_hint(String s) {
 		((EditText) getAndroidView()).setHint(s);
 	}
 	
-	public String getHint() {
+	public String jsGet_hint() {
 		return ((EditText) getAndroidView()).getHint().toString();
 	}
 	
-	public void setText(String s) {
+	public void jsSet_text(String s) {
 		((EditText) getAndroidView()).setText(s);
 	}
 	
-	public String getText() {
+	public String jsGet_text() {
 		return ((EditText) getAndroidView()).getText().toString();
 	}
 	
 	public void onFieldChanged() {}
+	
+	@Override
+	public String getClassName() {
+		return "Field";
+	}
 }
