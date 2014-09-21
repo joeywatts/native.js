@@ -1,21 +1,23 @@
 
-function onClick() {
-	label.text = "We are at index " + index;
-	nativeJs.pushScreen(screens[(index++)%screens.length]);
-}
-
 var button = new Button("This is a button");
-button.addOnClickListener(onClick);
-var screen = new Screen(button);
-
 var label = new Label("This is a label");
-label.addOnClickListener(onClick);
-var screen2 = new Screen(label);
-
 var field = new Field("Hint");
-var screen3 = new Screen(field);
 
-var screens = [screen, screen2, screen3];
+var container = new LinearContainer();
+button.horizontalSize = View.fill_container;
+label.horizontalAlignment = View.center;
+label.verticalAlignment = View.center;
+field.horizontalAlignment = View.right;
+container.addView(button);
+container.addView(label);
+container.addView(field);
 
-var index = 0;
-onClick();
+/* Unsupported
+var innerLabel1 = new Label("top");
+var innerContainer = new LinearContainer();
+innerContainer.addView(innerLabel1);
+container.addView(innerContainer);
+*/
+var screen = new Screen(container);
+nativeJs.setScreen(screen);
+

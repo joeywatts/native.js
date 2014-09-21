@@ -2,7 +2,7 @@
 
 ## View
 
-View base class has been implemented. Custom drawing from JavaScript has not been implemented. Supports OnClickListener. Lots of **TODO**sies.
+View base class has been implemented. Custom drawing from JavaScript has not been implemented. Supports OnClickListener. Lots of things **TODO**.
 
 ### Subclasses
 
@@ -49,7 +49,7 @@ field.text = "Some text";
 
 ## Container
 
-Containers have not been implemented yet.
+Containers have been implemented partially. Unable to support nested containers until there is a way to measure the container's size. The root view always take up the entire screen, so the size doesn't need to be measured in that case.
 
 ## Screen
 

@@ -3,6 +3,7 @@ package com.wajawinc.nativejs.view;
 import java.util.ArrayList;
 
 import org.mozilla.javascript.Function;
+import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -40,15 +41,14 @@ public class View extends ScriptableObject {
 		});
 	}
 	
-	/**
-	 * Called when the View is added to the Screen.
-	 */
-	public void jsFunction_onViewAddedToScreen() {}
-	
-	/**
-	 * Called when the View is removed from the Screen.
-	 */
-	public void jsFunction_onViewRemovedFromScreen() {}
+	protected void callFunc(String func, Object... params) {
+		if (has(func, this)) {
+			Function f = (Function) get(func, this);
+			Scriptable s = NativeJsActivity.getActivity().getJsScope();
+			org.mozilla.javascript.Context c = NativeJsActivity.getActivity().getJsContext();
+			f.call(c, s, null, params);
+		}
+	}
 	
 	/**
 	 * Cause the screen to redraw the view.
@@ -57,10 +57,27 @@ public class View extends ScriptableObject {
 		_view.postInvalidate();
 	}
 	
-	/**
-	 * Called when the View is drawn to the Screen
-	 */
-	public void jsFunction_drawView() {
+	public void jsFunction_layout(int l, int t, int r, int b) {
+		_view.layout(l, t, r, b);
+	}
+	
+	public int jsGet_width() {
+		return _view.getMeasuredWidth();
+	}
+	
+	public int jsGet_height() {
+		return _view.getMeasuredHeight();
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;
+		if (o == null)
+			return false;
+		if (o instanceof View)
+			return _view.equals(((View)o).getAndroidView());
+		return false;
 	}
 	
 	public void jsFunction_addOnClickListener(Function o) {
@@ -82,7 +99,25 @@ public class View extends ScriptableObject {
 		return _view;
 	}
 	
-	private class AndroidView extends android.view.View {
+	public static final int LEFT = 0, CENTER = 1, RIGHT = 2, TOP = 0, BOTTOM = 2;
+	public static final int WRAP_VIEW = 0, FILL_CONTAINER = 1;
+	
+	public static void finishInit(Scriptable scope, FunctionObject constructor,
+			Scriptable prototype) {
+		int flags = DONTENUM | READONLY | PERMANENT;
+		/* for horizontalSize, verticalSize */
+		constructor.defineProperty("wrap_view", WRAP_VIEW, flags);
+		constructor.defineProperty("fill_container", FILL_CONTAINER, flags);
+		
+		/* for verticalAlignment, horizontalAlignment */
+		constructor.defineProperty("left", LEFT, flags);
+		constructor.defineProperty("center", CENTER, flags);
+		constructor.defineProperty("right", RIGHT, flags);
+		constructor.defineProperty("top", TOP, flags);
+		constructor.defineProperty("bottom", BOTTOM, flags);
+	}
+	
+	public class AndroidView extends android.view.View {
 		
 		public AndroidView(Context context, AttributeSet attrs, int defStyleAttr) {
 			super(context, attrs, defStyleAttr);
@@ -100,19 +135,23 @@ public class View extends ScriptableObject {
 		public void draw(Canvas canvas) {
 			/* TODO: implement custom drawing in js */
 			super.draw(canvas);
-			jsFunction_drawView();
+			callFunc("drawView");
+		}
+		
+		public void setMeasuredSize(int w, int h) {
+			setMeasuredDimension(w, h);
 		}
 		
 		@Override
 		protected void onAttachedToWindow() {
 			super.onAttachedToWindow();
-			jsFunction_onViewAddedToScreen();
+			callFunc("onViewAddedToScreen");
 		}
 		
 		@Override
 		protected void onDetachedFromWindow() {
 			super.onDetachedFromWindow();
-			jsFunction_onViewRemovedFromScreen();
+			callFunc("onViewRemovedFromScreen");
 		}
 	}
 }

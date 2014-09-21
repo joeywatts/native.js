@@ -10,10 +10,12 @@ import org.mozilla.javascript.ScriptableObject;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.wajawinc.nativejs.view.Button;
+import com.wajawinc.nativejs.view.Container;
 import com.wajawinc.nativejs.view.Field;
 import com.wajawinc.nativejs.view.Label;
 import com.wajawinc.nativejs.view.View;
@@ -62,6 +64,10 @@ public class NativeJsActivity extends FragmentActivity {
 	public Screen getCurrentScreen() {
 		return currentScreen;
 	}
+	
+	public void log(String s) {
+		Log.d("native.js", s);
+	}
 
 	protected void initJsContext() {
 		jsContext = Context.enter();
@@ -74,6 +80,8 @@ public class NativeJsActivity extends FragmentActivity {
 		wrapClass(Button.class);
 		wrapClass(Field.class);
 		wrapClass(Label.class);
+		wrapClass(Container.class);
+		loadJsScript("lib/nativejs_ui.js");
 	}
 
 	protected void loadJsScript(String fileName) {
