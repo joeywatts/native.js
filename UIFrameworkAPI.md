@@ -70,15 +70,21 @@ With the Screen, Container, and Views put together, we can make fully-functional
 
 ```javascript
 
-var label = new Label("This is a label");
-label.addOnClickListener(function() {
-	nativeJs.popScreen();
-});
 var button = new Button("This is a button");
 button.addOnClickListener(function() {
-	var screen2 = new Screen(label);
-	nativeJs.pushScreen(screen2);
+	var linearContainer1 = new LinearContainer(true);
+	var label = new Label("This is a label");
+	label.addOnClickListener(function() {
+		nativeJs.popScreen();
+	});
+	label.verticalAlignment = View.center;
+	linearContainer1.addView(label);
+	var screen1 = new Screen(linearContainer1);
+	nativeJs.pushScreen(screen1);
 });
-var screen = new Screen(button);
+button.horizontalAlignment = View.right;
+var linearContainer = new LinearContainer();
+linearContainer.addView(button);
+var screen = new Screen(linearContainer);
 nativeJs.setScreen(screen);
 ```

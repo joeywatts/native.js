@@ -66,6 +66,12 @@ public class Container extends View {
 		}
 		
 		@Override
+		protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+			measureChildren(widthMeasureSpec, heightMeasureSpec);
+			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		}
+		
+		@Override
 		protected void onAttachedToWindow() {
 			super.onAttachedToWindow();
 			callFunc("onViewAddedToScreen");

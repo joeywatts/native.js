@@ -138,10 +138,6 @@ public class View extends ScriptableObject {
 			callFunc("drawView");
 		}
 		
-		public void setMeasuredSize(int w, int h) {
-			setMeasuredDimension(w, h);
-		}
-		
 		@Override
 		protected void onAttachedToWindow() {
 			super.onAttachedToWindow();

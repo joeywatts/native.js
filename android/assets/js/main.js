@@ -20,4 +20,3 @@ container.addView(innerContainer);
 */
 var screen = new Screen(container);
 nativeJs.setScreen(screen);
-
