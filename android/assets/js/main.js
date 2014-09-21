@@ -12,11 +12,14 @@ container.addView(button);
 container.addView(label);
 container.addView(field);
 
-/* Unsupported
+// Unsupported
 var innerLabel1 = new Label("top");
-var innerContainer = new LinearContainer();
+var innerContainer = new LinearContainer(true);
+innerContainer.horizontalSize = View.fill_container;
+//innerContainer.verticalSize = View.fill_container;
+// innerLabel1.verticalAlignment = View.bottom;
 innerContainer.addView(innerLabel1);
 container.addView(innerContainer);
-*/
+
 var screen = new Screen(container);
 nativeJs.setScreen(screen);

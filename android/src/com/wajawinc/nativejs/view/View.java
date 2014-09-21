@@ -41,13 +41,14 @@ public class View extends ScriptableObject {
 		});
 	}
 	
-	protected void callFunc(String func, Object... params) {
+	protected Object callFunc(String func, Object... params) {
 		if (has(func, this)) {
 			Function f = (Function) get(func, this);
 			Scriptable s = NativeJsActivity.getActivity().getJsScope();
 			org.mozilla.javascript.Context c = NativeJsActivity.getActivity().getJsContext();
-			f.call(c, s, null, params);
+			return f.call(c, s, null, params);
 		}
+		return null;
 	}
 	
 	/**

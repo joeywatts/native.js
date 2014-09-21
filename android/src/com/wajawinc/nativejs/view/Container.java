@@ -25,9 +25,11 @@ public class Container extends View {
 		return array;
 	}
 
-	public void jsFunction_addView(View v, Integer index) {
-		if (index == null)
-			index = children.size();
+	public void jsFunction_addView(View v) {
+		jsFunction_addViewAt(v, children.size());
+	}
+	
+	public void jsFunction_addViewAt(View v, int index) {
 		children.add(index, v);
 		((ViewGroup) getAndroidView()).addView(v.getAndroidView(), index);
 	}
@@ -68,7 +70,23 @@ public class Container extends View {
 		@Override
 		protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 			measureChildren(widthMeasureSpec, heightMeasureSpec);
-			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			int width=0, height=0;
+			if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY &&
+					MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY) {
+				NativeArray calc = (NativeArray) callFunc("onMeasure");
+				width = ((Number) calc.get(0)).intValue();
+				height= ((Number) calc.get(1)).intValue();
+			} else {
+				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+				return;
+			}
+			if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+				width = MeasureSpec.getSize(widthMeasureSpec);
+			} if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
+				height = MeasureSpec.getSize(heightMeasureSpec);
+			}
+			super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), 
+					MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
 		}
 		
 		@Override
