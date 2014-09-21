@@ -5,7 +5,7 @@ A **View** is any UI element that is drawn to the screen. Buttons, Labels, Field
 
 *  `View.left`, `View.center`, `View.right` - for horizontal alignment (`View.horizontalAlignment` property)
 *  `View.top`, `View.center`, `View.bottom` - for vertical alignment (`View.verticalAlignment` property)
-*  `View.fill_container`, `View.wrap_view` - for view sizing (horizontal - `View.horizontalSize` property & vertical - `View.verticalSize` property)
+*  `View.fill_container`, `View.wrap_view` - for view sizing (`View.horizontalSize` property & `View.verticalSize` property)
 
 ## Container
 

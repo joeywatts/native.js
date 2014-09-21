@@ -49,7 +49,7 @@ field.text = "Some text";
 
 ## Container
 
-Containers have been implemented partially. Unable to support nested containers until there is a way to measure the container's size. The root view always take up the entire screen, so the size doesn't need to be measured in that case.
+Containers have been implemented partially. Unable to support nested containers until there is a way to measure the container's size. The root view always takes up the entire screen, so the size doesn't need to be measured in that case.
 
 ## Screen
 
