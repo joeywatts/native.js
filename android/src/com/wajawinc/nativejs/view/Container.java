@@ -14,6 +14,7 @@ import com.wajawinc.nativejs.NativeJsActivity;
 public class Container extends View {
 	private static final long serialVersionUID = 8479335933083554279L;
 	private List<View> children;
+	private int paddingTop, paddingLeft, paddingRight, paddingBottom;
 
 	public void jsConstructor() {
 		children = new ArrayList<View>();
@@ -23,6 +24,45 @@ public class Container extends View {
 	public NativeArray jsGet_children() {
 		NativeArray array = new NativeArray(children.toArray());
 		return array;
+	}
+	
+	public void jsFunction_setPadding(int i) {
+		jsSet_paddingLeft(i);
+		jsSet_paddingRight(i);
+		jsSet_paddingTop(i);
+		jsSet_paddingBottom(i);
+	}
+	
+	public void jsSet_paddingLeft(int i) {
+		paddingLeft = i; 
+	}
+	
+	public void jsSet_paddingRight(int i) {
+		paddingRight = i; 
+	}
+	
+	public void jsSet_paddingTop(int i) {
+		paddingTop = i; 
+	}
+	
+	public void jsSet_paddingBottom(int i) {
+		paddingBottom = i; 
+	}
+	
+	public int jsGet_paddingLeft() {
+		return paddingLeft;
+	}
+	
+	public int jsGet_paddingRight() {
+		return paddingRight;
+	}
+	
+	public int jsGet_paddingTop() {
+		return paddingTop;
+	}
+	
+	public int jsGet_paddingBottom() {
+		return paddingBottom;
 	}
 
 	public void jsFunction_addView(View v) {
@@ -37,14 +77,6 @@ public class Container extends View {
 	public void jsFunction_removeView(View v) {
 		children.remove(v);
 		((ViewGroup) getAndroidView()).removeView(v.getAndroidView());
-	}
-	
-	public int jsGet_height() {
-		return getAndroidView().getHeight();
-	}
-
-	public int jsGet_width() {
-		return getAndroidView().getWidth();
 	}
 
 	public class AndroidViewGroup extends ViewGroup {
@@ -85,7 +117,7 @@ public class Container extends View {
 			} if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
 				height = MeasureSpec.getSize(heightMeasureSpec);
 			}
-			super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), 
+			setMeasuredDimension(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), 
 					MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
 		}
 		

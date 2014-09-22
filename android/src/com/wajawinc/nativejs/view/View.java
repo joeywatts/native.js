@@ -1,16 +1,14 @@
 package com.wajawinc.nativejs.view;
 
 import java.util.ArrayList;
-
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-
 import com.wajawinc.nativejs.NativeJsActivity;
 
 public class View extends ScriptableObject {
@@ -100,6 +98,7 @@ public class View extends ScriptableObject {
 		return _view;
 	}
 	
+	@SuppressLint("RtlHardcoded")
 	public static final int LEFT = 0, CENTER = 1, RIGHT = 2, TOP = 0, BOTTOM = 2;
 	public static final int WRAP_VIEW = 0, FILL_CONTAINER = 1;
 	

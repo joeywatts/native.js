@@ -21,6 +21,11 @@ container.onLayout = function(left, top, right, bottom) {
 container.addView(view);
 ```
 
+**Container Properties**
+--------------------------
+
+*  `paddingLeft`, `paddingRight`, `paddingTop`, `paddingBottom` - adds padding to the edge of containers. Can be set simultaneously with `Container.setPadding(int)`.
+
 ### LinearContainer
 
 A **LinearContainer** is a container that lays out views linearly either horizontally or vertically in order.
